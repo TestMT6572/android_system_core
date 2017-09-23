@@ -323,6 +323,37 @@ static int console_init_action(const std::vector<std::string>& args)
     return 0;
 }
 
+#ifdef MTK_HARDWARE
+static int read_serialno()
+{
+    int fd;
+    char serialno[32];
+    size_t s;
+
+    fd = open("/sys/sys_info/serial_number", O_RDWR);
+    if (fd < 0) {
+        NOTICE("fail to open: %s\n", "/sys/sys_info/serial_number");
+        return 0;
+    }
+    s = read(fd, serialno, sizeof(char)*32);
+
+    serialno[s-1] = '\0';
+
+    close(fd);
+
+    if (s <= 0) {
+	    NOTICE("could not read serial number sys file\n");
+	    return 0;
+	}
+
+    NOTICE("serial number=%s\n",serialno);
+
+    property_set("ro.boot.serialno", serialno);
+
+    return 1;
+}
+#endif
+
 static void import_kernel_nv(const std::string& key, const std::string& value, bool for_emulator) {
     if (key.empty()) return;
 
@@ -421,6 +452,10 @@ static void process_kernel_cmdline() {
     // as properties.
     import_kernel_cmdline(false, import_kernel_nv);
     if (qemu[0]) import_kernel_cmdline(true, import_kernel_nv);
+
+#ifdef MTK_HARDWARE
+    read_serialno();
+#endif
 }
 
 static int property_enable_triggers_action(const std::vector<std::string>& args)
