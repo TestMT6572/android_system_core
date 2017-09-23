@@ -20,6 +20,10 @@ ifneq ($(TARGET_INIT_CONSOLE_TIMEOUT),)
 init_options += -DCONSOLE_TIMEOUT_SEC=$(TARGET_INIT_CONSOLE_TIMEOUT)
 endif
 
+ifeq ($(OLD_KERNEL),true)
+init_options += -Dold_kernel=\"$(TARGET_BOARD_PLATFORM)\"
+endif
+
 init_cflags += \
     $(init_options) \
     -Wall -Wextra \

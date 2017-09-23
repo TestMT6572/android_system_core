@@ -366,7 +366,11 @@ static void export_kernel_boot_props() {
         { "ro.boot.mode",       "ro.bootmode",   "unknown", },
         { "ro.boot.baseband",   "ro.baseband",   "unknown", },
         { "ro.boot.bootloader", "ro.bootloader", "unknown", },
+#ifndef old_kernel
         { "ro.boot.hardware",   "ro.hardware",   "unknown", },
+#else
+        { "ro.boot.hardware",   "ro.hardware",   old_kernel, },
+#endif
 #ifndef IGNORE_RO_BOOT_REVISION
         { "ro.boot.revision",   "ro.revision",   "0", },
 #endif

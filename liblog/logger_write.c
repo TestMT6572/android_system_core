@@ -399,9 +399,9 @@ LIBLOG_ABI_PUBLIC int __android_log_buf_write(int bufID, int prio,
         !strcmp(tag, "AudioMTKFilter") ||
         !strcmp(tag, "AudioMTKStreamOut") ||
         !strcmp(tag, "AudioVPWStreamIn") ||
-	!strcmp(tag, "AudioDigitalControl") ||
+        !strcmp(tag, "AudioDigitalControl") ||
         !strcmp(tag, "AudioLoopbackController") ||
-	!strcmp(tag, "AudioMTKVolumeController") ||
+        !strcmp(tag, "AudioMTKVolumeController") ||
         !strcmp(tag, "AudioDigitalControl") ||
         !strcmp(tag, "AudioAnalogControl") ||
         !strcmp(tag, "AudioAfeReg") ||
